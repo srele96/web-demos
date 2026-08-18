@@ -1,0 +1,227 @@
+:root {
+    --color-bg: #0b0b0f;
+    --color-ink: #f7f7f5;
+    --color-muted: #d8d8d8;
+    --color-accent: #4ade80;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.outer-swiper {
+    height: 100svh;
+    width: 100%;
+}
+.outer-swiper > .swiper-slide {
+    height: 100svh;
+    position: relative;
+    overflow: hidden;
+}
+
+.inner-swiper {
+    height: 100%;
+    width: 100%;
+}
+.inner-swiper .swiper-slide {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.slide-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+}
+.slide-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.75) 0%,
+        rgba(0, 0, 0, 0.45) 45%,
+        rgba(0, 0, 0, 0.25) 70%,
+        rgba(0, 0, 0, 0.35) 100%
+    );
+}
+
+.card-text {
+    position: relative;
+    z-index: 10;
+    max-width: 42rem;
+    padding: 0 4rem 0 1.5rem;
+}
+@media (min-width: 640px) {
+    .card-text {
+        padding: 0 6rem 0 4rem;
+    }
+}
+
+.eyebrow {
+    margin-bottom: 1rem;
+    font-family: monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--color-accent);
+}
+.card-title {
+    font-size: 2.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+@media (min-width: 640px) {
+    .card-title {
+        font-size: 3.75rem;
+    }
+}
+.card-body {
+    margin-top: 1.25rem;
+    max-width: 28rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-muted);
+}
+@media (min-width: 640px) {
+    .card-body {
+        font-size: 1.125rem;
+    }
+}
+
+/* outer dots: which section */
+.outer-pagination.swiper-pagination-vertical {
+    right: 8px;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 40;
+}
+.outer-pagination .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: #f7f7f5;
+    opacity: 0.4;
+    margin: 0 !important;
+    transition: all 0.25s;
+}
+.outer-pagination .swiper-pagination-bullet-active {
+    opacity: 1;
+    height: 22px;
+    border-radius: 4px;
+    background: var(--color-accent);
+}
+@media (min-width: 640px) {
+    .outer-pagination.swiper-pagination-vertical {
+        right: 20px;
+    }
+}
+
+/* inner bars: which page within this section */
+.inner-pagination.swiper-pagination-vertical {
+    left: 6px;
+    right: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 30;
+}
+.inner-pagination .swiper-pagination-bullet {
+    width: 3px;
+    height: 14px;
+    border-radius: 2px;
+    background: #f7f7f5;
+    opacity: 0.3;
+    margin: 0 !important;
+    transition: all 0.25s;
+}
+.inner-pagination .swiper-pagination-bullet-active {
+    opacity: 0.9;
+    background: var(--color-accent);
+}
+
+.more-hint {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+    animation: bob 1.6s ease-in-out infinite;
+    z-index: 30;
+}
+@keyframes bob {
+    0%,
+    100% {
+        transform: translate(-50%, 0);
+    }
+    50% {
+        transform: translate(-50%, 5px);
+    }
+}
+
+.progress-bar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 30;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+}
+.progress-fill {
+    height: 100%;
+    background: var(--color-accent);
+    transition: width 0.5s ease-out;
+    width: 20%;
+}
+
+.brand {
+    position: fixed;
+    left: 1.5rem;
+    top: 1.5rem;
+    z-index: 20;
+    font-family: monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--color-muted);
+}
+@media (min-width: 640px) {
+    .brand {
+        left: 4rem;
+    }
+}
+
+.slide-card {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.inner-swiper {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    height: auto;
+}
