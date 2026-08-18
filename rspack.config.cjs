@@ -6,9 +6,12 @@ const SITES = ["demo-dental-centar", "demo-second-dental"];
 module.exports = {
   mode: "production",
 
-  entry: Object.fromEntries(
-    SITES.map((site) => [`${site}/main`, `./src/${site}/main.jsx`]),
-  ),
+  entry: {
+    ...Object.fromEntries(
+      SITES.map((site) => [`${site}/main`, `./src/${site}/main.jsx`]),
+    ),
+    main: "./src/main.jsx",
+  },
 
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -35,6 +38,7 @@ module.exports = {
           },
         },
       },
+      { test: /\.(png|jpe?g|webp|avif|svg)$/i, type: "asset/resource" },
     ],
   },
 
@@ -56,7 +60,7 @@ module.exports = {
   },
 
   optimization: {
-    runtimeChunk: "single",
+    runtimeChunk: { name: (entrypoint) => `${entrypoint.name}.runtime` },
     splitChunks: {
       chunks: "all",
       cacheGroups: {
@@ -88,16 +92,25 @@ module.exports = {
     },
   },
 
-  plugins: SITES.map(
-    (site) =>
-      new HtmlRspackPlugin({
-        template: `./src/${site}/index.html`,
-        filename: `${site}/index.html`,
-        chunks: [`${site}/main`],
-        scriptLoading: "defer",
-        minify: true,
-      }),
-  ),
+  plugins: [
+    ...SITES.map(
+      (site) =>
+        new HtmlRspackPlugin({
+          template: `./src/${site}/index.html`,
+          filename: `${site}/index.html`,
+          chunks: [`${site}/main`],
+          scriptLoading: "defer",
+          minify: true,
+        }),
+    ),
+    new HtmlRspackPlugin({
+      template: "./src/index.html",
+      filename: "index.html",
+      chunks: ["main"],
+      scriptLoading: "defer",
+      minify: true,
+    }),
+  ],
 
   devServer: {
     static: path.resolve(__dirname, "dist"),
