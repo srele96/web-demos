@@ -4,15 +4,21 @@
   "private": true,
   "scripts": {
     "dev": "rspack serve",
-    "build": "rspack build"
+    "build": "rspack build",
+    "format": "prettier --write ."
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
     "gsap": "^3.15.0",
+    "postcss": "^8.5.26",
+    "postcss-loader": "^8.2.1",
     "preact": "^10.29.8",
+    "prettier": "^3.9.6",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "sharp": "^0.35.3",
-    "swiper": "^14.1.0"
+    "swiper": "^14.1.0",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@rspack/cli": "^1.0.0",

@@ -1,0 +1,219 @@
+@import 'tailwindcss';
+
+/* ================================================================
+   DESIGN TOKENS — the single source of truth.
+
+   Layer 1 (primitives)  raw values, named after what they ARE.
+   Layer 2 (semantic)    roles, named after what they DO.
+   Layer 3 (@theme)      hands the semantic roles to Tailwind.
+
+   Nothing below Layer 2 hardcodes a colour, radius or gutter.
+   To re-skin the site, edit Layer 1 only.
+   ================================================================ */
+
+:root {
+  /* ---- Layer 1: primitives ----------------------------------- */
+
+  /* Brand ramp — wine / burgundy */
+  --wine-50: #faf0f3;
+  --wine-400: #a83048;
+  --wine-500: #8e2035; /* base  */
+  --wine-600: #6b1828; /* hover */
+  --wine-700: #52121f;
+
+  /* Neutral ramp — slate */
+  --neutral-0: #ffffff;
+  --neutral-50: #f8fafc;
+  --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-900: #0f172a;
+
+  /* Typefaces */
+  --face-inter: 'Inter', sans-serif;
+  --face-poppins: 'Poppins', sans-serif;
+
+  /* ---- Layer 2: semantic colour roles ------------------------ */
+  --brand: var(--wine-500);
+  --brand-hover: var(--wine-600);
+  --brand-soft: var(--wine-50);
+  --on-brand: var(--neutral-0);
+
+  --surface: var(--neutral-0);
+  --surface-alt: var(--neutral-50);
+
+  --ink: var(--neutral-900); /* headings, strong text */
+  --ink-muted: var(--neutral-600); /* body copy             */
+  --ink-subtle: var(--neutral-500); /* labels, meta          */
+
+  --line: var(--neutral-200);
+  --line-strong: var(--neutral-300);
+
+  --scrim: var(--neutral-900); /* drawer overlay        */
+
+  /* ---- Layer 2: semantic type roles -------------------------- */
+  --font-body: var(--face-inter);
+  --font-display: var(--face-poppins);
+
+  /* ---- Layer 2: spatial rhythm ------------------------------- */
+  --safe-b: env(safe-area-inset-bottom, 0px);
+
+  --gutter: 1.5rem; /* side padding of the content column */
+  --edge: 1.5rem; /* horizontal inset of fixed chrome   */
+  --edge-y: max(1.25rem, var(--safe-b)); /* vertical inset      */
+  --bar-y: 1.25rem; /* top-bar padding — keeps the navbar
+                         and the drawer header on one line  */
+  --card-radius: 1rem;
+
+  /* ---- Layer 2: effects -------------------------------------- */
+  --glow-size: 900px;
+  --glow-strength: 4%;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 2.5rem;
+    --edge: 2.5rem;
+    --edge-y: max(2.5rem, var(--safe-b));
+    --bar-y: 1.5rem;
+    --card-radius: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 5rem;
+    --edge: 4rem;
+  }
+}
+
+/* ---- Re-skin example ------------------------------------------
+   Swap the whole site by overriding primitives only:
+
+   :root {
+       --wine-500: #0c4a6e;
+       --wine-600: #07334d;
+       --wine-50:  #f0f9ff;
+   }
+   --------------------------------------------------------------- */
+
+/* ================================================================
+   Layer 3 — Tailwind theme.
+
+   `inline` is what lets the utilities resolve to var(--brand)
+   rather than a frozen copy of its value, so the responsive
+   media queries and the re-skin block above keep working.
+   ================================================================ */
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
+
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-on-brand: var(--on-brand);
+
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-scrim: var(--scrim);
+
+  --spacing-gutter: var(--gutter);
+  --spacing-edge: var(--edge);
+  --spacing-edge-y: var(--edge-y);
+  --spacing-bar-y: var(--bar-y);
+
+  --radius-card: var(--card-radius);
+
+  --shadow-cta: 0 4px 14px color-mix(in srgb, var(--brand) 25%, transparent);
+  --shadow-cta-lg: 0 6px 20px color-mix(in srgb, var(--brand) 35%, transparent);
+  --shadow-card: 0 20px 40px color-mix(in srgb, var(--ink) 8%, transparent);
+  --shadow-drawer: -10px 0 30px color-mix(in srgb, var(--ink) 6%, transparent);
+
+  --ease-drawer: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ================================================================
+   Base
+   ================================================================ */
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    /* The deck owns the viewport; Swiper handles the scrolling. */
+    overflow: hidden;
+    font-family: var(--font-body);
+    background-color: var(--surface);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 3px;
+  }
+}
+
+/* ================================================================
+   Effects that are too verbose as arbitrary utilities.
+   All values read from the token layer.
+   ================================================================ */
+
+@utility bg-glow {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--glow-size);
+    height: var(--glow-size);
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--brand) var(--glow-strength), transparent) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+}
+
+@layer components {
+  /* Underline that wipes in from the left. `data-active` is driven
+       by React — no class juggling in JS. */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    height: 2px;
+    background-color: var(--brand);
+    transition: right 250ms ease;
+  }
+
+  .nav-link:hover::after,
+  .nav-link[data-active='true']::after {
+    right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

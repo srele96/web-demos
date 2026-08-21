@@ -1,16 +1,21 @@
-import { render } from "preact";
-import "./styles.css";
+import { render } from 'preact';
+import './styles.css';
 
 const MOCKUPS = [
   {
-    href: "./demo-dental-centar/",
-    name: "Snap sections",
-    desc: "Nested Swiper demo — paged sections, GSAP reveals.",
+    href: './demo-dental-centar/',
+    name: 'Snap sections',
+    desc: 'Nested Swiper demo - paged sections, GSAP reveals.',
   },
   {
-    href: "./demo-second-dental/",
-    name: "Una Dental Centar",
-    desc: "Stomatološka ordinacija, Beograd.",
+    href: './demo-second-dental/',
+    name: 'Una Dental Centar',
+    desc: 'Stomatološka ordinacija, Beograd.',
+  },
+  {
+    href: './demo-dental-latest/',
+    name: 'Dental Centar Latest',
+    desc: 'Swiper sections, latest design',
   },
 ];
 
@@ -27,8 +32,8 @@ function App() {
       <ul>
         {MOCKUPS.map(({ href, name, desc }, i) => (
           <li key={href}>
-            <a href={href}>
-              <span className="idx">{String(i + 1).padStart(2, "0")}</span>
+            <a href={href} className="link-item">
+              <span className="idx">{String(i + 1).padStart(2, '0')}</span>
               <span className="meta">
                 <span className="name">{name}</span>
                 <span className="desc">{desc}</span>
@@ -45,4 +50,4 @@ function App() {
   );
 }
 
-render(<App />, document.getElementById("root"));
+render(<App />, document.getElementById('root'));

@@ -11,8 +11,8 @@
   --wine: #8e2035;
   --hairline: rgba(25, 27, 29, 0.14);
 
-  --display: "Bodoni Moda", Georgia, serif;
-  --body: "Karla", system-ui, sans-serif;
+  --display: 'Bodoni Moda', Georgia, serif;
+  --body: 'Karla', system-ui, sans-serif;
 }
 
 * {
@@ -129,7 +129,7 @@ body {
 }
 
 .ud-label::before {
-  content: "";
+  content: '';
   display: inline-block;
   width: 22px;
   height: 1px;
@@ -221,7 +221,9 @@ body {
   padding: 0.95rem 1.6rem;
   border: 1px solid var(--wine);
   color: var(--wine);
-  transition: background 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .ud-cta--solid {
